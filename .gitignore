@@ -1,0 +1,145 @@
+# ==========================================
+# Go
+# ==========================================
+
+# Compiled binaries and executables
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Build output (common binary output dirs)
+bin/
+dist/
+out/
+
+# Test binary, built with `go test -c`
+*.test
+
+# Test cache
+.testcache/
+
+# Coverage output
+*.out
+coverage.html
+coverage.xml
+
+# Go workspace file
+go.work
+go.work.sum
+
+# Dependency vendor directory (remove if you intentionally commit vendor/)
+# vendor/
+
+# ==========================================
+# Air (live reload)
+# ==========================================
+tmp/
+air.log
+
+# ==========================================
+# Environment & Secrets
+# ==========================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+config/local*.yaml
+config/local*.yml
+
+# ==========================================
+# OS Files
+# ==========================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# ==========================================
+# IDEs & Editors
+# ==========================================
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json.example
+
+# JetBrains (GoLand, IntelliJ)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Vim / Neovim
+*.swp
+*.swo
+Session.vim
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ==========================================
+# Docker
+# ==========================================
+.dockerignore
+docker-compose.override.yml
+
+# ==========================================
+# Logs & Debug
+# ==========================================
+*.log
+logs/
+pprof/
+*.prof
+*.trace
+cpu.out
+mem.out
+
+# ==========================================
+# Build & CI artifacts
+# ==========================================
+.cache/
+*.tar.gz
+*.zip
+release/
+
+# ==========================================
+# Terraform (if infra lives in repo)
+# ==========================================
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+
+# ==========================================
+# Miscellaneous
+# ==========================================
+*.bak
+*.tmp
+*.orig
+.idea/
