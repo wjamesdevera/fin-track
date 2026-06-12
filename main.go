@@ -17,13 +17,15 @@ func main() {
 	cli.VersionPrinter = func(cmd *cli.Command) {
 		fmt.Printf("FinTrack version=%s revision=%s", cmd.Root().Version, Revision)
 	}
+
 	cmd := &cli.Command{
 		Name:    "ftrack",
-		Usage:   "ftrack is a tool for managing finance on te command line.",
+		Usage:   "ftrack is a tool for managing finnance on the command line.",
 		Version: "v1.0.0",
 	}
 
 	if err := cmd.Run(context.Background(), os.Args); err != nil {
 		log.Fatal(err)
 	}
+
 }
