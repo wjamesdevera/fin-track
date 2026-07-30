@@ -1,0 +1,26 @@
+Date,Expense ID,Category,Subcategory,Description,Vendor,Payment Method,Amount (PHP),Currency,Receipt #,Notes,Reimbursable,Status
+2026-05-01,EXP-001,Food & Dining,Groceries,Weekly grocery run,SM Supermarket,Credit Card,3250.00,PHP,REC-0501,Monthly household supplies,No,Approved
+2026-05-02,EXP-002,Transportation,Fuel,Gas fill-up,Petron,Cash,1800.00,PHP,REC-0502,,No,Approved
+2026-05-03,EXP-003,Utilities,Internet,Monthly broadband bill,PLDT,Bank Transfer,1899.00,PHP,REC-0503,May billing period,No,Approved
+2026-05-04,EXP-004,Work & Office,Software,Figma subscription,Figma Inc.,Credit Card,850.00,PHP,REC-0504,Monthly plan,Yes,Pending
+2026-05-05,EXP-005,Food & Dining,Restaurant,Team lunch,Jollibee Ortigas,Cash,1200.00,PHP,REC-0505,5 people,Yes,Approved
+2026-05-06,EXP-006,Health & Wellness,Pharmacy,Vitamins and meds,Mercury Drug,Cash,650.00,PHP,REC-0506,,No,Approved
+2026-05-07,EXP-007,Transportation,Ride-hailing,Client meeting commute,Grab,GCash,320.00,PHP,REC-0507,Northgate Alabang,Yes,Approved
+2026-05-08,EXP-008,Subscriptions,Streaming,Netflix monthly,Netflix,Credit Card,549.00,PHP,REC-0508,,No,Approved
+2026-05-09,EXP-009,Work & Office,Supplies,Printer ink and paper,National Bookstore,Cash,890.00,PHP,REC-0509,,Yes,Approved
+2026-05-10,EXP-010,Food & Dining,Coffee,Coffee and snacks,Starbucks BGC,GCash,420.00,PHP,REC-0510,Client meeting,Yes,Pending
+2026-05-12,EXP-011,Utilities,Electricity,Meralco monthly bill,Meralco,Bank Transfer,4200.00,PHP,REC-0511,April consumption,No,Approved
+2026-05-13,EXP-012,Health & Wellness,Gym,Monthly membership,Anytime Fitness,Credit Card,1500.00,PHP,REC-0512,,No,Approved
+2026-05-14,EXP-013,Food & Dining,Groceries,Midmonth grocery top-up,Robinsons Supermarket,Credit Card,1750.00,PHP,REC-0513,,No,Approved
+2026-05-15,EXP-014,Work & Office,Training,Online course,Udemy,Credit Card,700.00,PHP,REC-0514,Go Programming course,Yes,Pending
+2026-05-16,EXP-015,Transportation,Parking,Mall parking,Glorietta,Cash,75.00,PHP,REC-0515,,No,Approved
+2026-05-18,EXP-016,Food & Dining,Restaurant,Birthday dinner,Yabu BGC,Credit Card,3800.00,PHP,REC-0516,Family celebration,No,Approved
+2026-05-19,EXP-017,Subscriptions,Cloud Storage,Google One storage,Google,Credit Card,269.00,PHP,REC-0517,100GB plan,No,Approved
+2026-05-20,EXP-018,Health & Wellness,Doctor,GP consultation,St. Luke's Medical,Cash,1200.00,PHP,REC-0518,,No,Approved
+2026-05-21,EXP-019,Transportation,Fuel,Gas fill-up,Shell,Credit Card,1750.00,PHP,REC-0519,,No,Approved
+2026-05-22,EXP-020,Work & Office,Equipment,USB-C hub,Lazada,Credit Card,1299.00,PHP,REC-0520,WFH setup,Yes,Approved
+2026-05-23,EXP-021,Food & Dining,Delivery,Dinner delivery,Grab Food,GCash,580.00,PHP,REC-0521,,No,Approved
+2026-05-25,EXP-022,Personal Care,Haircut,Haircut and grooming,VS Men's Grooming,Cash,350.00,PHP,REC-0522,,No,Approved
+2026-05-26,EXP-023,Utilities,Water,MWSS monthly bill,Maynilad,Bank Transfer,980.00,PHP,REC-0523,,No,Approved
+2026-05-27,EXP-024,Food & Dining,Groceries,End of month groceries,Landmark,Credit Card,2900.00,PHP,REC-0524,,No,Approved
+2026-05-28,EXP-025,Entertainment,Leisure,Movie tickets,SM Cinema,GCash,760.00,PHP,REC-0525,2 tickets,No,Approved
