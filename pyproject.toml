@@ -1,0 +1,23 @@
+[project]
+name = "fintrack"
+version = "1.0.0"
+description = "FinTrack is a lightweight Command Line Interface (CLI) financial management tool designed for rapid expense and income logging. By leveraging a terminal-based environment, FinTrack provides a high-velocity alternative to bulky mobile apps or manual spreadsheets. This project aims to eliminate the \"logging friction\" that prevents consistent financial tracking for power users who spend their time in a development environment."
+requires-python = ">=3.13"
+dependencies = [
+"annotated-types==0.8.0",
+"click==8.4.2",
+"greenlet==3.5.4",
+"pydantic==2.13.4",
+"pydantic_core==2.46.4",
+"SQLAlchemy==2.0.51",
+"sqlmodel==0.0.39",
+"typing-inspection==0.4.2",
+"typing_extensions==4.16.0"
+]
+
+[project.scripts]
+fintrack = "fintrack.main:start_app"
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
