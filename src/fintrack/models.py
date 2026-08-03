@@ -53,6 +53,11 @@ class SubCategory(SimpleIDModel, table=True):
     category: Category | None = Relationship(back_populates="categories")
 
 
-class Transaction(UUIDIDModel, TimestampaModel, table=True):
+class Transaction(UUIDIDModel, TimestampModel, table=True):
     __tablename__ = "transactions"
     amount: Decimal = Field(default=0, max_digits=11, decimal_places=2)
+
+
+class Account(UUIDIDModel, TimestampModel, table=True):
+    __tablename__ = "accounts"
+    balance: Decimal = Field(default=0, max_digits=11, decimal_places=2)
