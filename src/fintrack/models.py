@@ -14,7 +14,7 @@ class UUIDIDModel(SQLModel):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
 
 
-class TimestampaModel(SQLModel):
+class TimestampModel(SQLModel):
     created_at: Optional[datetime] = Field(
         default_factory=lambda: datetime.now(timezone.utc)
 
@@ -29,7 +29,7 @@ class TimestampaModel(SQLModel):
 
 
 class EventTimestampModel(SQLModel):
-    occured_at: datetime = Field(
+    occured_at: Optional[datetime] = Field(
         default_factory=lambda: datetime.now(timezone.utc)
 
     )
