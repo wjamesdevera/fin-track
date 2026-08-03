@@ -15,11 +15,11 @@ class UUIDIDModel(SQLModel):
 
 
 class TimestampaModel(SQLModel):
-    created_at: datetime = Field(
+    created_at: Optional[datetime] = Field(
         default_factory=lambda: datetime.now(timezone.utc)
 
     )
-    updated_at: datetime = Field(
+    updated_at: Optional[datetime] = Field(
         default_factory=lambda: datetime.now(timezone.utc),
         sa_column_kwargs={
             "onupdate": lambda:
