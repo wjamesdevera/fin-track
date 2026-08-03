@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
-fin = "fintrack.main:start_app"
+fintrack = "fintrack.main:start_app"
 
 [build-system]
 requires = ["flit_core<4"]
