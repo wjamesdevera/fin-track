@@ -12,7 +12,7 @@ Developers, sysadmins, and power users who spend primary working hours in a Unix
 
 - **Blazing Fast Logging:** Enable logging an expense or income transaction in < 3 seconds via a single shell command.
 - **Instant Visibility:** View total balance and category breakdowns directly from stdout.
-- **Zero-Config Persistence:** Store data locally out of the box (SQLite/JSON) without requiring external server setup or authentication.
+- **Zero-Config Persistence:** Store data locally out of the box (SQLite) without requiring external server setup or authentication.
 
 ## Non-Goals (Out of Scope for v1.0.0)
 
