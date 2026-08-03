@@ -11,7 +11,7 @@ class Category(SQLModel, table=True):
         back_populates="sub_categories")
 
 
-class SubCategories(SQLModel, table=True):
+class SubCategory(SQLModel, table=True):
     __tablename__ = "sub_categories"
     id: int | None = Field(default=None, primary_key=True)
     name: str
