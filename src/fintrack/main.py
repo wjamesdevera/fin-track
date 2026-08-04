@@ -1,6 +1,6 @@
 import click
 from .db import engine, SQLModel
-from .seed import seed_categories
+from .seed import seed_categories_and_sub_categories
 
 
 @click.command()
@@ -15,5 +15,5 @@ def create_db_and_tables():
 
 def start_app():
     create_db_and_tables()
-    seed_categories()
+    seed_categories_and_sub_categories()
     cli()

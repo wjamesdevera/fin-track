@@ -1,5 +1,5 @@
-from .models.models import Category
-from sqlmodel import Session
+from .models.models import Category, SubCategory
+from sqlmodel import Session, select
 from .db import engine
 
 
@@ -66,9 +66,27 @@ categories = [
 ]
 
 
-def seed_categories():
+def _seed_categories():
     with Session(engine) as session:
         for category in categories:
             n_categ = Category(name=category['name'])
             session.add(n_categ)
             session.commit()
+
+
+def _seed_sub_categories():
+    with Session(engine) as session:
+        for category in categories:
+            statement = select(Category).where(
+                Category.name == category['name'])
+            result = session.exec(statement)
+            category_o = result.first()
+            for sub_category in category['sub_categories']:
+                session.add(SubCategory(
+                    name=sub_category['name'], category_id=category_o.id))
+                session.commit()
+
+
+def seed_categories_and_sub_categories():
+    _seed_categories()
+    _seed_sub_categories()
