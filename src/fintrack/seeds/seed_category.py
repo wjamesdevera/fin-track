@@ -1,7 +1,6 @@
-from .models.models import Category, SubCategory
+from ..models.models import Category, SubCategory
 from sqlmodel import Session, select
-from .db import engine
-
+from .seed_utils import exists
 
 categories = [
     {
@@ -66,27 +65,30 @@ categories = [
 ]
 
 
-def _seed_categories():
-    with Session(engine) as session:
-        for category in categories:
-            n_categ = Category(name=category['name'])
-            session.add(n_categ)
-            session.commit()
+def _seed_categories(session: Session):
+    for category in categories:
+        if not exists(session, Category, category["name"]):
+            session.add(Category(name=category["name"]))
+    session.commit()
 
 
-def _seed_sub_categories():
-    with Session(engine) as session:
-        for category in categories:
-            statement = select(Category).where(
-                Category.name == category['name'])
-            result = session.exec(statement)
-            category_o = result.first()
-            for sub_category in category['sub_categories']:
-                session.add(SubCategory(
-                    name=sub_category['name'], category_id=category_o.id))
-                session.commit()
+def _seed_subcategories(session: Session):
+    for category in categories:
+        category_o = session.exec(
+            select(Category).where(Category.name == category["name"])
+        ).first()
+        if category_o is None:
+            continue  # category wasn't found/seeded, skip its sub-categories
+
+        for sub_category in category["sub_categories"]:
+            if not exists(session, SubCategory, sub_category["name"]):
+                session.add(
+                    SubCategory(
+                        name=sub_category["name"], category_id=category_o.id)
+                )
+    session.commit()
 
 
-def seed_categories_and_sub_categories():
-    _seed_categories()
-    _seed_sub_categories()
+def seed(session: Session):
+    _seed_categories(session)
+    _seed_subcategories(session)
