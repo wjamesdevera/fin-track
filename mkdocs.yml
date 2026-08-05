@@ -1,0 +1,9 @@
+site_name: Fintrack
+
+theme:
+  name: readthedocs
+
+nav:
+  - Home: index.md
+  - Usage: usage/index.md
+  - Examples: usage/commands.md
