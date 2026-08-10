@@ -21,3 +21,7 @@ fintrack = "fintrack.main:start_app"
 [build-system]
 requires = ["flit_core<4"]
 build-backend = "flit_core.buildapi"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"] 
+testpaths = ["tests"]
