@@ -24,4 +24,3 @@ build-backend = "flit_core.buildapi"
 
 [tool.pytest.ini_options]
 pythonpath = ["src"] 
-testpaths = ["tests"]
