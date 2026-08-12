@@ -1,5 +1,6 @@
 import click
 from .db import engine, SQLModel
+from .commands.log import log
 from .seeds.seed import seed_all
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
@@ -14,7 +15,12 @@ apps and spreadsheets with a seamless, high-velocity workflow.
 """
 
 
-@click.command(context_settings=CONTEXT_SETTINGS)
+@click.group()
+def main():
+    pass
+
+
+@main.command(context_settings=CONTEXT_SETTINGS)
 def cli():
     """
     Fintrack [version 1.0.0]
@@ -31,4 +37,7 @@ def create_db_and_tables():
 def start_app():
     create_db_and_tables()
     seed_all()
-    cli()
+    main()
+
+
+main.add_command(log)
