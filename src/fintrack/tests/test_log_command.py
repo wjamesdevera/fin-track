@@ -64,7 +64,7 @@ def test_log_valid(runner, monkeypatch) -> None:
     assert session.added.note == 'Lunch with team'
 
 
-def test_log_amount_invalid(runner, monkeypatch) -> None:
+def test_log_amount_invalid_type(runner, monkeypatch) -> None:
     session = DummySession()
     session.category = SubCategory(id=1, name='Groceries')
 
