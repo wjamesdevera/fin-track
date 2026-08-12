@@ -26,5 +26,6 @@ def log(amount: float, type: str, category: str, note: str | None) -> None:
 
         session.add(new_transaction)
         session.commit()
+
         click.echo(
-            f'amount: ${amount} | type: {new_type} | category: {obj_category.name} | note: {note}')
+            f'Added: amount: ${amount} | type: {new_type.lower()} | category: {obj_category.name} | note: {note}')
