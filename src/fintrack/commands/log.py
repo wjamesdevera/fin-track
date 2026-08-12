@@ -11,21 +11,32 @@ from ..db import engine
 @click.option("-n", "--note", type=str, default=None)
 def log(amount: float, type: str, category: str, note: str | None) -> None:
     with Session(engine) as session:
+
+        # checks if category is in sub categories in database
         statement = select(SubCategory).where(
             SubCategory.name == category)
         obj_category = session.exec(statement).first()
 
         if not obj_category:
-            raise ValueError("Category not found")
+            raise click.BadParameter(
+                f"{category} does not exist")
+
+        if type.lower() not in TransactionType:
+            raise click.BadParameter("Transaction type not valid")
 
         new_type = TransactionType.EXPENSE if type.lower(
         ) == "expense" else TransactionType.INCOME
 
+        # checks if amount is negative
+        if amount <= 0:
+            raise click.BadParameter("Amount could not be a negative or 0")
+
+        # creates a new transaction
         new_transaction = Transaction(
             amount=amount, type=new_type, sub_category_id=obj_category.id, note=note)
-
         session.add(new_transaction)
+
         session.commit()
 
         click.echo(
-            f'Added: amount: ${amount} | type: {new_type.lower()} | category: {obj_category.name} | note: {note}')
+            f'Added: amount=${amount} | type={new_type.lower()} | category={obj_category.name} | note={note}')
