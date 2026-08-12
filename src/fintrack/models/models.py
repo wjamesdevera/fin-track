@@ -34,7 +34,7 @@ class SubCategory(SimpleIDModel, table=True):
 class Transaction(UUIDIDModel, TimestampModel, table=True):
     __tablename__ = "transactions"
     type: TransactionType
-    note: str
+    note: str | None = Field(default=None)
     sub_category: SubCategory | None = Relationship(
         back_populates="transactions")
     sub_category_id: int | None = Field(
