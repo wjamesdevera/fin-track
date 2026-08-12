@@ -4,14 +4,14 @@ from ..models.models import Transaction, SubCategory, TransactionType
 from ..db import engine
 
 
-@click.command(name="log")
+@click.command(name="log", epilog="Examples:\n\n\b\n  fintrack log --amount 45.50 --type expense --category \"Food\" --note \"Lunch with team\"\n")
 @click.option("-a", "--amount", type=float, help="Transaction Amount")
 @click.option("-t", "--type", type=str, default="expense", help="expense/income")
 @click.option("-c", "--category", type=str)
 @click.option("-n", "--note", type=str, default=None)
 def log(amount: float, type: str, category: str, note: str | None) -> None:
+    """A command use to log a transaction and store into local db"""
     with Session(engine) as session:
-
         # checks if category is in sub categories in database
         statement = select(SubCategory).where(
             SubCategory.name == category)
