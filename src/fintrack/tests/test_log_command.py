@@ -150,12 +150,12 @@ def test_log_note_optional(runner, monkeypatch) -> None:
     result = runner.invoke(log, [
         '--amount', '45.50',
         '--type', 'expense',
-        '--category', 'Not in the category'
+        '--category', 'Groceries'
     ])
 
     assert result.exit_code == 0
     assert session.added is not None
-    assert session.committed is False
+    assert session.committed is True
     assert session.added.type == TransactionType.EXPENSE
     assert float(session.added.amount) == 45.50
     assert session.added.sub_category_id == 1
