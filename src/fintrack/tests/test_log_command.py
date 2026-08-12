@@ -83,6 +83,25 @@ def test_log_amount_invalid_type(runner, monkeypatch) -> None:
     assert session.committed is False
 
 
+def test_log_amount_negative_amount(runner, monkeypatch) -> None:
+    session = DummySession()
+    session.category = SubCategory(id=1, name='Groceries')
+
+    monkeypatch.setattr('fintrack.commands.log.Session',
+                        lambda engine: session)
+
+    result = runner.invoke(log, [
+        '--amount', '-45.50',
+        '--type', 'expense',
+        '--category', 'Groceries',
+        '--note', 'Lunch with team'
+    ])
+
+    assert result.exit_code != 0
+    assert session.added is None
+    assert session.committed is False
+
+
 def test_log_type_invalid(runner, monkeypatch) -> None:
     session = DummySession()
     session.category = SubCategory(id=1, name='Groceries')
