@@ -12,7 +12,9 @@ class CategoryRepository():
         with Session(engine) as session:
             new_category = Category(name=name)
             session.add(new_category)
-            return session.commit()
+            session.commit()
+            print(f"Added: Category={name}")
+            return (new_category)
 
     def find_by_name(self, name: str):
         with Session(engine) as session:
@@ -32,6 +34,7 @@ class CategoryRepository():
             old_category.name = new_name
             session.add(old_category)
             session.commit()
+            print(f"Modified: Category={old_name} -> Category={new_name}")
 
     def delete(self, name: str) -> None:
         with Session(engine) as session:
