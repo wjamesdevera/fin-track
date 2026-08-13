@@ -2,6 +2,7 @@ import click
 from .db import engine, SQLModel
 from .commands.log import log
 from .seeds.seed import seed_all
+from sqlmodel import Session
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 WELCOME_MESSGAGE = """
@@ -36,7 +37,8 @@ def create_db_and_tables():
 
 def start_app():
     create_db_and_tables()
-    seed_all()
+    with Session(engine) as session:
+        seed_all(session)
     main()
 
 
