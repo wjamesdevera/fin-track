@@ -32,3 +32,14 @@ class CategoryRepository():
             old_category.name = new_name
             session.add(old_category)
             session.commit()
+
+    def delete(self, name: str) -> None:
+        with Session(engine) as session:
+            category_to_delete = self.find_by_name(name)
+            if not category_to_delete:
+                print(
+                    f"Deleting: {name} failed: category {name} does not exist.")
+                return
+            session.delete(category_to_delete)
+            session.commit()
+            print(f"Deleted: Category={name}")
