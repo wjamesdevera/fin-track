@@ -14,7 +14,7 @@ class Category(SimpleIDModel, table=True):
     __tablename__ = "categories"
 
     id: int | None = Field(default=None, primary_key=True)
-    name: str
+    name: str = Field(unique=True)
 
     sub_categories: list["SubCategory"] | None = Relationship(
         back_populates="category")

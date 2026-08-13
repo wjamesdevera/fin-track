@@ -3,6 +3,5 @@ from ..db import engine
 from sqlmodel import Session
 
 
-def seed_all():
-    with Session(engine) as session:
-        seed_categories(session)
+def seed_all(session: Session):
+    seed_categories(session)
