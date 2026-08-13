@@ -6,6 +6,11 @@ from sqlmodel import SQLModel, Session
 
 
 @pytest.fixture
+def repo():
+    return CategoryRepository()
+
+
+@pytest.fixture
 def setup_test_db(monkeypatch):
     """Create test database tables and patch the engine for testing."""
     # Create all tables
@@ -22,9 +27,8 @@ def setup_test_db(monkeypatch):
     SQLModel.metadata.drop_all(test_engine)
 
 
-def test_add_category(setup_test_db):
+def test_add_category(setup_test_db, repo):
     """Test adding a new category."""
-    repo = CategoryRepository()
     result = repo.add("New Category")
 
     # Verify the object was returned
@@ -36,17 +40,15 @@ def test_add_category(setup_test_db):
     assert found.name == "New Category"
 
 
-def test_add_existing_category(setup_test_db):
+def test_add_existing_category(setup_test_db, repo):
     """Test adding an existing category"""
-    repo = CategoryRepository()
 
     with pytest.raises(Exception):
         result = repo.add("expense")
 
 
-def test_changing_name_of_category(setup_test_db):
+def test_changing_name_of_category(setup_test_db, repo):
     """Test changing name of category"""
-    repo = CategoryRepository()
     result = repo.change_name("expense", "Expense")
 
     assert result is not None
