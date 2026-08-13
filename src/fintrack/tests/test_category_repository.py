@@ -56,3 +56,19 @@ def test_changing_name_of_category(setup_test_db, repo):
     found = repo.find_by_name("Expense")
     assert found is not None
     assert found.name == "Expense"
+
+
+def test_changing_name_for_non_existing_category(setup_test_db, repo):
+    """Test changing name for non-existing category"""
+    with pytest.raises(Exception):
+        repo.change_name("New Category", "NEW-NAME")
+
+
+def test_deleting_category(setup_test_db, repo):
+    """Test deleting a category"""
+    deleted = repo.delete("expense")
+
+    assert deleted is not None
+
+    found = repo.find_by_name("expense")
+    assert found is None
