@@ -35,6 +35,7 @@ class CategoryRepository():
             session.add(old_category)
             session.commit()
             print(f"Modified: Category={old_name} -> Category={new_name}")
+            return old_category
 
     def delete(self, name: str) -> None:
         with Session(engine) as session:
