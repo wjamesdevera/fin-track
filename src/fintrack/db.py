@@ -1,4 +1,4 @@
-from sqlmodel import create_engine
+from sqlmodel import create_engine, SQLModel
 from sqlmodel.pool import StaticPool
 
 
