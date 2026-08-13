@@ -47,3 +47,4 @@ class CategoryRepository():
             session.delete(category_to_delete)
             session.commit()
             print(f"Deleted: Category={name}")
+            return category_to_delete
