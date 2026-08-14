@@ -1,4 +1,3 @@
-from decimal import Decimal
 from typing import TYPE_CHECKING
 from sqlmodel import Field, Relationship
 
@@ -28,8 +27,3 @@ class SubCategory(SimpleIDModel, table=True):
 
     transactions: list["Transaction"] | None = Relationship(
         back_populates="sub_category")
-
-
-class Account(UUIDIDModel, TimestampModel, table=True):
-    __tablename__ = "accounts"
-    balance: Decimal = Field(default=0, max_digits=11, decimal_places=2)
