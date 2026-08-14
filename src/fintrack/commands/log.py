@@ -1,6 +1,6 @@
 import click
 from sqlmodel import Session, select
-from ..models.models import Transaction, SubCategory, TransactionType
+from ..models.category import Transaction, SubCategory, TransactionType
 from ..db import engine
 
 

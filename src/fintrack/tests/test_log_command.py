@@ -1,5 +1,5 @@
 from fintrack.commands.log import log
-from fintrack.models.models import SubCategory, TransactionType
+from fintrack.models.category import SubCategory, TransactionType
 from click.testing import CliRunner
 import pytest
 
@@ -56,7 +56,8 @@ def test_log_valid(runner, monkeypatch) -> None:
     session = make_session({
         'Groceries': SubCategory(id=1, name='Groceries')
     })
-    monkeypatch.setattr('fintrack.commands.log.Session', lambda engine: session)
+    monkeypatch.setattr('fintrack.commands.log.Session',
+                        lambda engine: session)
 
     result = runner.invoke(log, [
         '--amount', '45.50',
@@ -77,7 +78,8 @@ def test_log_valid(runner, monkeypatch) -> None:
 
 def test_log_category_invalid(runner, monkeypatch) -> None:
     session = make_session({})
-    monkeypatch.setattr('fintrack.commands.log.Session', lambda engine: session)
+    monkeypatch.setattr('fintrack.commands.log.Session',
+                        lambda engine: session)
 
     result = runner.invoke(log, [
         '--amount', '45.50',
@@ -95,7 +97,8 @@ def test_log_amount_invalid_type(runner, monkeypatch) -> None:
     session = make_session({
         'Groceries': SubCategory(id=1, name='Groceries')
     })
-    monkeypatch.setattr('fintrack.commands.log.Session', lambda engine: session)
+    monkeypatch.setattr('fintrack.commands.log.Session',
+                        lambda engine: session)
 
     result = runner.invoke(log, [
         '--amount', 'somestring',
@@ -113,7 +116,8 @@ def test_log_amount_negative_amount(runner, monkeypatch) -> None:
     session = make_session({
         'Groceries': SubCategory(id=1, name='Groceries')
     })
-    monkeypatch.setattr('fintrack.commands.log.Session', lambda engine: session)
+    monkeypatch.setattr('fintrack.commands.log.Session',
+                        lambda engine: session)
 
     result = runner.invoke(log, [
         '--amount', '-45.50',
@@ -131,7 +135,8 @@ def test_log_type_invalid(runner, monkeypatch) -> None:
     session = make_session({
         'Groceries': SubCategory(id=1, name='Groceries')
     })
-    monkeypatch.setattr('fintrack.commands.log.Session', lambda engine: session)
+    monkeypatch.setattr('fintrack.commands.log.Session',
+                        lambda engine: session)
 
     result = runner.invoke(log, [
         '--amount', '45.50',
@@ -149,7 +154,8 @@ def test_log_note_optional(runner, monkeypatch) -> None:
     session = make_session({
         'Groceries': SubCategory(id=1, name='Groceries')
     })
-    monkeypatch.setattr('fintrack.commands.log.Session', lambda engine: session)
+    monkeypatch.setattr('fintrack.commands.log.Session',
+                        lambda engine: session)
 
     result = runner.invoke(log, [
         '--amount', '45.50',

@@ -1,4 +1,4 @@
-from ..models.models import Category, SubCategory
+from ..models.category import Category, SubCategory
 from sqlmodel import Session, select
 from .seed_utils import exists
 
