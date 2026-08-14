@@ -70,3 +70,13 @@ def test_list_all_sub_category(setup_test_db, session) -> None:
 
     assert sub_categories is not None
     assert len(sub_categories) > 0
+
+
+def test_list_all_sub_category_by_category(setup_test_db, session) -> None:
+    """Test list all sub category filtered by category"""
+    c = session.exec(select(Category)).first()
+    sub_categories = list_all_sub_category(category=c, session=session)
+
+    assert sub_categories is not None
+    assert len(sub_categories) > 0
+    assert len(sub_categories) == 14
