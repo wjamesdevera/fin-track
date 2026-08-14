@@ -1,3 +1,5 @@
+from typing import Optional
+
 from fintrack.models.category import SubCategory, Category
 from sqlmodel import Session, select
 
@@ -20,9 +22,5 @@ def add_sub_category(category: Category, name: str, session: Session) -> SubCate
     return new_sc
 
 
-def list_all_sub_category(session: Session) -> list[SubCategory]:
-    return session.exec(select(SubCategory))
-
-
-def list_all_sub_category(category: Category, session: Session) -> list[SubCategory]:
-    return session.exec(select(SubCategory).where(SubCategory.category == category)).fetchall()
+def list_all_sub_category(session: Session, category: Optional[Category] = None) -> list[SubCategory]:
+    return session.exec(select(SubCategory)).fetchall() if not category else session.exec(select(SubCategory).where(SubCategory.category == category)).fetchall()
