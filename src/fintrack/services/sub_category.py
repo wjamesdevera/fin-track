@@ -1,5 +1,5 @@
 from fintrack.models.category import SubCategory, Category
-from sqlmodel import Session
+from sqlmodel import Session, select
 
 
 class SubCategoryExist(Exception):
@@ -16,3 +16,7 @@ def add_sub_category(category: Category, name: str, session: Session) -> SubCate
     session.commit()
     print(f'Successfully added: Subcategory={name}')
     return new_sc
+
+
+def list_all_sub_category(session: Session) -> list[SubCategory]:
+    return session.exec(select(SubCategory))
