@@ -1,6 +1,7 @@
 import click
 from sqlmodel import Session, select
-from ..models.category import Transaction, SubCategory, TransactionType
+from fintrack.models.category import SubCategory
+from fintrack.models.transaction import Transaction, TransactionType
 from ..db import engine
 
 
