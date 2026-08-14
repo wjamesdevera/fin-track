@@ -2,7 +2,7 @@ import pytest
 from fintrack.db import test_engine
 from fintrack.seeds.seed import seed_all
 from sqlmodel import SQLModel, Session, select
-from fintrack.services.sub_category import add_sub_category, list_all_sub_category
+from fintrack.services.sub_category import add_sub_category, list_all_sub_category, find_sub_category
 from fintrack.models.category import Category, SubCategory
 
 
@@ -80,3 +80,10 @@ def test_list_all_sub_category_by_category(setup_test_db, session) -> None:
     assert sub_categories is not None
     assert len(sub_categories) > 0
     assert len(sub_categories) == 14
+
+
+def test_find_sub_category(setup_test_db, session) -> None:
+    sc = find_sub_category("Groceries", session=session)
+
+    assert sc is not None
+    assert sc.name == "Groceries"
