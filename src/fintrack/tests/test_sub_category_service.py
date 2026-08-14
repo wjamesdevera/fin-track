@@ -2,7 +2,7 @@ import pytest
 from fintrack.db import test_engine
 from fintrack.seeds.seed import seed_all
 from sqlmodel import SQLModel, Session, select
-from fintrack.services.sub_category import add_sub_category
+from fintrack.services.sub_category import add_sub_category, list_all_sub_category
 from fintrack.models.category import Category, SubCategory
 
 
@@ -62,3 +62,11 @@ def test_add_existing_sub_category(setup_test_db, session) -> None:
             name=existing_subcategory.name,
             session=session
         )
+
+
+def test_list_all_sub_category(setup_test_db, session) -> None:
+    """Test list all sub category"""
+    sub_categories = list_all_sub_category(session=session)
+
+    assert sub_categories is not None
+    assert len(sub_categories) > 0
