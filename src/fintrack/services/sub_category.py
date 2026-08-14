@@ -1,6 +1,8 @@
 from fintrack.models.category import SubCategory, Category
 from sqlmodel import Session, select
 
+from fintrack.db import engine
+
 
 class SubCategoryExist(Exception):
     pass
@@ -20,3 +22,7 @@ def add_sub_category(category: Category, name: str, session: Session) -> SubCate
 
 def list_all_sub_category(session: Session) -> list[SubCategory]:
     return session.exec(select(SubCategory))
+
+
+def list_all_sub_category(category: Category, session: Session) -> list[SubCategory]:
+    return session.exec(select(SubCategory).where(SubCategory.category == category)).fetchall()
