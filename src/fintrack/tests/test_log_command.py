@@ -1,5 +1,6 @@
 from fintrack.commands.log import log
-from fintrack.models.category import SubCategory, TransactionType
+from fintrack.models.category import SubCategory
+from fintrack.models.transaction import TransactionType
 from click.testing import CliRunner
 import pytest
 
