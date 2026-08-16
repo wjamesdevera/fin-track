@@ -1,9 +1,8 @@
 import pytest
 from sqlmodel import Session, SQLModel, select
 from fintrack.db import test_engine
-from fintrack.seeds.seed import seed_all
-from fintrack.services.transaction import add_transaction
-from fintrack.models.transaction import Transaction
+from fintrack.services.transaction import add_transaction, list_all_transaction
+from fintrack.models.transaction import Transaction, TransactionType
 from fintrack.models.category import Category, SubCategory
 
 
@@ -48,3 +47,36 @@ def test_add_transaction(setup_test_db, session):
     transactions = session.exec(select(Transaction)).all()
 
     assert len(transactions) != 0
+
+
+def test_list_all_transactions(setup_test_db, session):
+    test_category_1 = Category(name="expense")
+    test_subcategory_1 = SubCategory(
+        name="transportation", category=test_category_1)
+    test_transaction_1 = Transaction(
+        amount=500.5,
+        type=TransactionType.EXPENSE,
+        sub_category=test_subcategory_1,
+        note="Grab"
+    )
+
+    test_transaction_2 = Transaction(
+        amount=20,
+        type=TransactionType.EXPENSE,
+        sub_category=test_subcategory_1,
+        note="Jeepney"
+    )
+    session.add(test_category_1)
+    session.add(test_subcategory_1)
+    session.add_all(
+        [test_category_1, test_subcategory_1,
+            test_transaction_1, test_transaction_2]
+    )
+    session.commit()
+
+    transactions = list_all_transaction(session)
+
+    assert len(transactions) == 2
+    # Checks if order is in desc order by creation
+    assert transactions[0].note == "Jeepney"
+    assert transactions[1].note == "Grab"
