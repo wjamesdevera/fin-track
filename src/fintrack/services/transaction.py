@@ -1,7 +1,6 @@
 from typing import Optional
 
-from sqlmodel import Session
-from fintrack.db import engine
+from sqlmodel import Session, select
 from fintrack.models.transaction import Transaction, TransactionType
 from fintrack.services.sub_category import find_sub_category
 
@@ -35,3 +34,7 @@ def add_transaction(session: Session, amount: float, transaction_type: Transacti
     )
     session.add(n_transaction)
     session.commit()
+
+
+def list_all_transactions(session: Session):
+    return session.exec(select(Transaction).order_by(Transaction.created_at.desc())).all()
