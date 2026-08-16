@@ -15,7 +15,7 @@ def add_sub_category(category: Category, name: str, session: Session) -> SubCate
         if sc.name == name:
             raise SubCategoryExist
 
-    new_sc = SubCategory(name=name, category=category)
+    new_sc = SubCategory(name=name.lower(), category=category)
     session.add(new_sc)
     session.commit()
     print(f'Successfully added: Subcategory={name}')
