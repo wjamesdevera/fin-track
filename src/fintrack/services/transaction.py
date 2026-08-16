@@ -23,16 +23,15 @@ def add_transaction(session: Session, amount: float, transaction_type: Transacti
         raise InvalidAmountValue
     if transaction_type not in TransactionType:
         raise InvalidTransactionType
-    with Session(engine) as session:
-        sub_category = find_sub_category(name=category, session=session)
-        if not sub_category:
-            raise SubCategoryDoesNotExist
+    sub_category = find_sub_category(name=category, session=session)
+    if not sub_category:
+        raise SubCategoryDoesNotExist
 
-        n_transaction = Transaction(
-            amount=amount,
-            type=transaction_type,
-            sub_category=sub_category,
-            note=note
-        )
-        session.add(n_transaction)
-        session.commit()
+    n_transaction = Transaction(
+        amount=amount,
+        type=transaction_type,
+        sub_category=sub_category,
+        note=note
+    )
+    session.add(n_transaction)
+    session.commit()
