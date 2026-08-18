@@ -1,7 +1,7 @@
 import pytest
 from sqlmodel import Session, SQLModel, select
 from fintrack.db import test_engine
-from fintrack.services.transaction import add_transaction, find_transaction_by_id, list_all_transactions
+from fintrack.services.transaction import add_transaction, find_transaction_by_id, list_all_transactions, modify_transaction
 from fintrack.models.transaction import Transaction, TransactionType
 from fintrack.models.category import Category, SubCategory
 import uuid
@@ -115,4 +115,71 @@ def test_find_transaction_by_id(setup_test_db, session):
 
 
 def test_modify_transaction(setup_test_db, session):
-    ...
+    category = session.exec(select(Category)).first()
+    test_sub_category = SubCategory(name="new category", category=category)
+
+    session.add(test_sub_category)
+    session.commit()
+    session.refresh(test_sub_category)
+    test_transaction_1, test_transaction_2 = _seed_test_transactions(session)
+
+    # test modifying all fields
+    transaction = modify_transaction(
+        session,
+        transaction_id=test_transaction_2.id,
+        amount=1000,
+        transaction_type="income",
+        category=test_sub_category.name,
+        note="modified note"
+    )
+
+    assert transaction is not None
+    assert transaction.id == test_transaction_2.id
+    assert transaction.amount == 1000
+    assert transaction.type == "income"
+    assert transaction.sub_category == test_sub_category
+    assert transaction.note == "modified note"
+
+    # test modifying amount
+    transaction = modify_transaction(
+        session,
+        transaction_id=test_transaction_1.id,
+        amount=float(20)
+    )
+
+    assert transaction is not None
+    assert transaction.id == test_transaction_1.id
+    assert transaction.amount == 20.0
+
+    # test modifying transaction type
+    transaction = modify_transaction(
+        session,
+        transaction_id=test_transaction_1.id,
+        transaction_type="income"
+    )
+
+    assert transaction is not None
+    assert transaction.id == test_transaction_1.id
+    assert transaction.type == "income"
+
+    # test modifying category
+    transaction = modify_transaction(
+        session,
+        transaction_id=test_transaction_1.id,
+        category=test_sub_category.name
+    )
+
+    assert transaction is not None
+    assert transaction.id == test_transaction_1.id
+    assert transaction.sub_category == test_sub_category
+
+    # test modifying note
+    transaction = modify_transaction(
+        session,
+        transaction_id=test_transaction_1.id,
+        note="modified note"
+    )
+
+    assert transaction is not None
+    assert transaction.id == test_transaction_1.id
+    assert transaction.note == "modified note"
