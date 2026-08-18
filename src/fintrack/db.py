@@ -5,7 +5,7 @@ from sqlmodel.pool import StaticPool
 sqlite_file_name = "data/database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 
-engine = create_engine(sqlite_url, echo=True)
+engine = create_engine(sqlite_url, echo=False)
 
 test_sqlite_file_name = "data/testing.db"
 test_sqlite_url = f"sqlite:///{test_sqlite_file_name}"
