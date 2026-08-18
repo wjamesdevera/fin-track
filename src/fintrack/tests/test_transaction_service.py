@@ -28,14 +28,23 @@ def setup_test_db():
     SQLModel.metadata.drop_all(test_engine)
 
 
-def test_add_transaction(setup_test_db, session):
-    """Test adding a valid transaction"""
+def _seed_test_categories(session: Session):
     test_category_1 = Category(name="expense")
     test_subcategory_1 = SubCategory(
         name="transportation", category=test_category_1)
     session.add(test_category_1)
     session.add(test_subcategory_1)
     session.commit()
+
+
+def _seed_test_transaction(session: Session):
+    _seed_test_categories(session)
+    ...
+
+
+def test_add_transaction(setup_test_db, session):
+    """Test adding a valid transaction"""
+    _seed_test_categories(session)
 
     new_transaction = add_transaction(
         session=session,
@@ -48,6 +57,10 @@ def test_add_transaction(setup_test_db, session):
     transactions = session.exec(select(Transaction)).all()
 
     assert len(transactions) != 0
+    assert transactions[0].amount == new_transaction.amount
+    assert transactions[0].type == new_transaction.type
+    assert transactions[0].sub_category_id == new_transaction.sub_category_id
+    assert transactions[0].note == new_transaction.note
 
 
 def test_list_all_transactions(setup_test_db, session):
