@@ -6,31 +6,25 @@ categories = [
     {
         "name": "expense",
         "sub_categories": [
-            {"name": "Food & Dining"},
-            {"name": "Groceries"},
-            {"name": "Housing & Rent"},
-            {"name": "Utilities"},
+            {"name": "Food"},
             {"name": "Transportation"},
             {"name": "Entertainment"},
             {"name": "Shopping"},
-            {"name": "Healthcare & Medical"},
-            {"name": "Subscriptions & Services"},
-            {"name": "Personal Care"},
-            {"name": "Travel & Vacation"},
-            {"name": "Education & Learning"},
-            {"name": "Pets"},
-            {"name": "Gifts & Donations"}
+            {"name": "Bills"},
+            {"name": "Healthcare"},
+            {"name": "Education"},
+            {"name": "Personal"},
+            {"name": "Other"}
         ]
     },
     {
         "name": "income",
         "sub_categories": [
-            {"name": "Salary / Wages"},
-            {"name": "Freelance / Side Hustle"},
-            {"name": "Investments & Dividends"},
-            {"name": "Rental Income"},
-            {"name": "Gifts & Grants"},
-            {"name": "Refunds & Cashbacks"},
+            {"name": "Salary"},
+            {"name": "Freelance"},
+            {"name": "Investments"},
+            {"name": "Gifts"},
+            {"name": "Refunds"},
             {"name": "Other Income"}
         ]
     },
@@ -38,8 +32,8 @@ categories = [
         "name": "savings_and_investments",
         "sub_categories": [
             {"name": "Emergency Fund"},
-            {"name": "Retirement (401k / IRA)"},
-            {"name": "Stocks & ETFs"},
+            {"name": "Retirement"},
+            {"name": "Stocks"},
             {"name": "Crypto"},
             {"name": "Real Estate"}
         ]
