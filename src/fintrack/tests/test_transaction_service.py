@@ -1,9 +1,10 @@
 import pytest
 from sqlmodel import Session, SQLModel, select
 from fintrack.db import test_engine
-from fintrack.services.transaction import add_transaction, list_all_transaction
+from fintrack.services.transaction import add_transaction, find_transaction_by_id, list_all_transactions
 from fintrack.models.transaction import Transaction, TransactionType
 from fintrack.models.category import Category, SubCategory
+import uuid
 
 
 @pytest.fixture
@@ -74,9 +75,74 @@ def test_list_all_transactions(setup_test_db, session):
     )
     session.commit()
 
-    transactions = list_all_transaction(session)
+    transactions = list_all_transactions(session)
 
     assert len(transactions) == 2
     # Checks if order is in desc order by creation
     assert transactions[0].note == "Jeepney"
     assert transactions[1].note == "Grab"
+
+
+def test_find_transaction_by_id(setup_test_db, session):
+    test_category_1 = Category(name="expense")
+    test_subcategory_1 = SubCategory(
+        name="transportation", category=test_category_1)
+    test_transaction_1 = Transaction(
+        amount=500.5,
+        type=TransactionType.EXPENSE,
+        sub_category=test_subcategory_1,
+        note="Grab"
+    )
+
+    test_transaction_2 = Transaction(
+        amount=20,
+        type=TransactionType.EXPENSE,
+        sub_category=test_subcategory_1,
+        note="Jeepney"
+    )
+    session.add(test_category_1)
+    session.add(test_subcategory_1)
+    session.add_all(
+        [test_category_1, test_subcategory_1,
+            test_transaction_1, test_transaction_2]
+    )
+    session.commit()
+    session.refresh(test_transaction_1)
+    session.refresh(test_transaction_2)
+
+    transaction = find_transaction_by_id(session, test_transaction_1.id)
+
+    assert transaction is not None
+    assert transaction.id == test_transaction_1.id
+
+
+def test_find_transaction_by_id(setup_test_db, session):
+    test_category_1 = Category(name="expense")
+    test_subcategory_1 = SubCategory(
+        name="transportation", category=test_category_1)
+    test_transaction_1 = Transaction(
+        amount=500.5,
+        type=TransactionType.EXPENSE,
+        sub_category=test_subcategory_1,
+        note="Grab"
+    )
+
+    test_transaction_2 = Transaction(
+        amount=20,
+        type=TransactionType.EXPENSE,
+        sub_category=test_subcategory_1,
+        note="Jeepney"
+    )
+    session.add(test_category_1)
+    session.add(test_subcategory_1)
+    session.add_all(
+        [test_category_1, test_subcategory_1,
+            test_transaction_1, test_transaction_2]
+    )
+    session.commit()
+    session.refresh(test_transaction_1)
+    session.refresh(test_transaction_2)
+
+    transaction = find_transaction_by_id(session, uuid.uuid4())
+
+    assert transaction is None
