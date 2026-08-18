@@ -78,3 +78,11 @@ def modify_transaction(session: Session, transaction_id: UUID, amount: Optional[
     session.commit()
     session.refresh(transaction)
     return transaction
+
+
+def delete_transaction(session: Session, transaction_id: UUID) -> Transaction:
+    transaction = find_transaction_by_id(session=session, id=transaction_id)
+    if transaction is None:
+        raise TransactionNotFound
+    session.delete(transaction)
+    return transaction
