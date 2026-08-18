@@ -17,7 +17,11 @@ class SubCategoryDoesNotExist(Exception):
     pass
 
 
-def add_transaction(session: Session, amount: float, transaction_type: TransactionType, category: str, note: Optional[str] = None):
+class TransactionNotFound(Exception):
+    pass
+
+
+def add_transaction(session: Session, amount: float, transaction_type: TransactionType, category: str, note: Optional[str] = None) -> Transaction:
     if type(amount) != float or amount <= 0:
         raise InvalidAmountValue
     if transaction_type not in TransactionType:

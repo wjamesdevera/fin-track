@@ -28,18 +28,41 @@ def setup_test_db():
     SQLModel.metadata.drop_all(test_engine)
 
 
-def _seed_test_categories(session: Session):
+def _seed_test_categories(session: Session) -> tuple[Category, SubCategory]:
     test_category_1 = Category(name="expense")
     test_subcategory_1 = SubCategory(
         name="transportation", category=test_category_1)
+    session.add_all([test_category_1, test_subcategory_1])
+    session.commit()
+    session.refresh(test_category_1)
+    session.refresh(test_subcategory_1)
+    return test_category_1, test_subcategory_1
+
+
+def _seed_test_transactions(session: Session) -> tuple[Transaction, Transaction]:
+    test_category_1, test_subcategory_1 = _seed_test_categories(session)
+    test_transaction_1 = Transaction(
+        amount=500.5,
+        type=TransactionType.EXPENSE,
+        sub_category=test_subcategory_1,
+        note="Grab"
+    )
+
+    test_transaction_2 = Transaction(
+        amount=20,
+        type=TransactionType.EXPENSE,
+        sub_category=test_subcategory_1,
+        note="Jeepney"
+    )
     session.add(test_category_1)
     session.add(test_subcategory_1)
+    session.add_all(
+        [test_transaction_1, test_transaction_2]
+    )
     session.commit()
-
-
-def _seed_test_transaction(session: Session):
-    _seed_test_categories(session)
-    ...
+    session.refresh(test_transaction_1)
+    session.refresh(test_transaction_2)
+    return test_transaction_1, test_transaction_1
 
 
 def test_add_transaction(setup_test_db, session):
@@ -64,30 +87,8 @@ def test_add_transaction(setup_test_db, session):
 
 
 def test_list_all_transactions(setup_test_db, session):
-    test_category_1 = Category(name="expense")
-    test_subcategory_1 = SubCategory(
-        name="transportation", category=test_category_1)
-    test_transaction_1 = Transaction(
-        amount=500.5,
-        type=TransactionType.EXPENSE,
-        sub_category=test_subcategory_1,
-        note="Grab"
-    )
 
-    test_transaction_2 = Transaction(
-        amount=20,
-        type=TransactionType.EXPENSE,
-        sub_category=test_subcategory_1,
-        note="Jeepney"
-    )
-    session.add(test_category_1)
-    session.add(test_subcategory_1)
-    session.add_all(
-        [test_category_1, test_subcategory_1,
-            test_transaction_1, test_transaction_2]
-    )
-    session.commit()
-
+    _seed_test_transactions(session)
     transactions = list_all_transactions(session)
 
     assert len(transactions) == 2
@@ -97,31 +98,7 @@ def test_list_all_transactions(setup_test_db, session):
 
 
 def test_find_transaction_by_id(setup_test_db, session):
-    test_category_1 = Category(name="expense")
-    test_subcategory_1 = SubCategory(
-        name="transportation", category=test_category_1)
-    test_transaction_1 = Transaction(
-        amount=500.5,
-        type=TransactionType.EXPENSE,
-        sub_category=test_subcategory_1,
-        note="Grab"
-    )
-
-    test_transaction_2 = Transaction(
-        amount=20,
-        type=TransactionType.EXPENSE,
-        sub_category=test_subcategory_1,
-        note="Jeepney"
-    )
-    session.add(test_category_1)
-    session.add(test_subcategory_1)
-    session.add_all(
-        [test_category_1, test_subcategory_1,
-            test_transaction_1, test_transaction_2]
-    )
-    session.commit()
-    session.refresh(test_transaction_1)
-    session.refresh(test_transaction_2)
+    test_transaction_1 = _seed_test_transactions(session)
 
     transaction = find_transaction_by_id(session, test_transaction_1.id)
 
@@ -130,32 +107,12 @@ def test_find_transaction_by_id(setup_test_db, session):
 
 
 def test_find_transaction_by_id(setup_test_db, session):
-    test_category_1 = Category(name="expense")
-    test_subcategory_1 = SubCategory(
-        name="transportation", category=test_category_1)
-    test_transaction_1 = Transaction(
-        amount=500.5,
-        type=TransactionType.EXPENSE,
-        sub_category=test_subcategory_1,
-        note="Grab"
-    )
-
-    test_transaction_2 = Transaction(
-        amount=20,
-        type=TransactionType.EXPENSE,
-        sub_category=test_subcategory_1,
-        note="Jeepney"
-    )
-    session.add(test_category_1)
-    session.add(test_subcategory_1)
-    session.add_all(
-        [test_category_1, test_subcategory_1,
-            test_transaction_1, test_transaction_2]
-    )
-    session.commit()
-    session.refresh(test_transaction_1)
-    session.refresh(test_transaction_2)
+    _seed_test_transactions(session)
 
     transaction = find_transaction_by_id(session, uuid.uuid4())
 
     assert transaction is None
+
+
+def test_modify_transaction(setup_test_db, session):
+    ...
