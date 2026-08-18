@@ -4,7 +4,7 @@ from sqlmodel import Session
 from fintrack.models.category import SubCategory
 from fintrack.services.transaction import list_all_transactions
 from fintrack.services.sub_category import list_all_sub_category
-from fintrack.models.transaction import Transaction, TransactionType
+from fintrack.models.transaction import Transaction
 
 TABLE_HEADERS = [
     "date",
@@ -45,11 +45,3 @@ def list(category):
             subcategories = list_all_sub_category(session)
         for sc in subcategories:
             print(f'{sc.name}')
-
-
-# if __name__ == "__main__":
-#     with Session(engine) as session:
-#         transactions = list_all_transactions(session=session)
-#         if not transactions:
-#             print("No Transactions Found")
-#         list()
