@@ -1,7 +1,7 @@
 import pytest
 from sqlmodel import Session, SQLModel, select
 from fintrack.db import test_engine
-from fintrack.services.transaction import add_transaction, find_transaction_by_id, list_all_transactions, modify_transaction
+from fintrack.services.transaction import add_transaction, find_transaction_by_id, list_all_transactions, modify_transaction, delete_transaction
 from fintrack.models.transaction import Transaction, TransactionType
 from fintrack.models.category import Category, SubCategory
 import uuid
@@ -183,3 +183,14 @@ def test_modify_transaction(setup_test_db, session):
     assert transaction is not None
     assert transaction.id == test_transaction_1.id
     assert transaction.note == "modified note"
+
+
+def test_delete_transaction(setup_test_db, session):
+    test_transaction_1, test_transaction_2 = _seed_test_transactions(session)
+
+    deleted_transaction = delete_transaction(
+        session=session, transaction_id=test_transaction_1.id)
+    transactions = session.exec(select(Transaction)).fetchall()
+
+    assert deleted_transaction is not None
+    assert len(transactions) < 2
