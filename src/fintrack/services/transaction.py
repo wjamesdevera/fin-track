@@ -2,6 +2,7 @@ from typing import Optional
 
 from sqlmodel import Session, select
 from fintrack.models.transaction import Transaction, TransactionType
+from fintrack.models.category import SubCategory
 from fintrack.services.sub_category import find_sub_category
 from uuid import UUID
 
@@ -44,7 +45,7 @@ def add_transaction(session: Session, amount: float, transaction_type: Transacti
 
 
 def list_all_transactions(session: Session):
-    return session.exec(select(Transaction).order_by(Transaction.created_at.desc())).all()
+    return session.exec(select(Transaction, SubCategory).join(SubCategory, isouter=True).order_by(Transaction.created_at.desc())).all()
 
 
 def find_transaction_by_id(session: Session, id: UUID) -> Transaction | None:

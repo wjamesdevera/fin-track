@@ -1,6 +1,7 @@
 import click
 from .db import engine, SQLModel
 from .commands.log import log
+from fintrack.commands.list import list as list_command
 from .seeds.seed import seed_all
 from sqlmodel import Session
 
@@ -43,3 +44,4 @@ def start_app():
 
 
 main.add_command(log)
+main.add_command(list_command)
