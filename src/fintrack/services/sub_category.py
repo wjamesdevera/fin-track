@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, overload
 
 from fintrack.models.category import SubCategory, Category
 from sqlmodel import Session, select
@@ -26,5 +26,35 @@ def list_all_sub_category(session: Session, category: Optional[Category] = None)
     return session.exec(select(SubCategory)).fetchall() if not category else session.exec(select(SubCategory).where(SubCategory.category == category)).fetchall()
 
 
-def find_sub_category(name: str, session: Session):
-    return session.exec(select(SubCategory).where(SubCategory.name == name)).one_or_none()
+@overload
+def find_sub_category(session: Session, identifier: str):
+    pass
+
+
+@overload
+def find_sub_category(session: Session, identifier: int):
+    pass
+
+
+def find_sub_category(session: Session, identifier: int):
+    if type(identifier) is str:
+        return session.exec(select(SubCategory).where(SubCategory.name == identifier)).one_or_none()
+    if type(identifier) is int:
+        return session.get(SubCategory, identifier)
+
+
+@overload
+def delete_sub_category(session: Session, identifier: str) -> SubCategory | None:
+    pass
+
+
+@overload
+def delete_sub_category(session: Session, identifier: int) -> SubCategory | None:
+    pass
+
+
+def delete_sub_category(session: Session, identifier: int) -> SubCategory | None:
+    subcategory = find_sub_category(session=session, identifier=identifier)
+    session.delete(subcategory)
+    session.commit()
+    return subcategory
